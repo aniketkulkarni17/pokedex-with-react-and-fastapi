@@ -1,0 +1,1 @@
+web: sh -c 'npm start && cd server && uvicorn server:app --reload'
