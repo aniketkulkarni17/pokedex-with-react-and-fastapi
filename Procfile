@@ -1,1 +1,1 @@
-web: sh -c 'npm start'
+web: npm start
