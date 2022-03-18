@@ -51,30 +51,46 @@ function Pokedex() {
   return (
     <div className="pokedex-main">
       <div className="title-section">
-        <h1>Pokemon Stats</h1>
+        <h1>Pokedex</h1>
         <input
           type="text"
           onChange={(e) => {
             setPokemonName(e.target.value);
           }}
         />
-        <button onClick={searchPokemon}>Search Pokemon</button>
-        <button onClick={goToFavourites}>View Favourites</button>
+        <button
+          type="button"
+          onClick={searchPokemon}
+          class="btn btn-primary btn-sm"
+        >
+          Search Pokemon
+        </button>
+        {/* <button onClick={searchPokemon}>Search Pokemon</button> */}
+        <button onClick={goToFavourites} className="btn btn-primary btn-sm">
+          View Favourites
+        </button>
       </div>
       <div className="display-section">
         {!pokemonChosen ? (
           <h1>Please choose a Pokemon</h1>
         ) : (
           <>
-            <h1>{pokemon.name}</h1>
+            <h1>{pokemon.name[0].toUpperCase() + pokemon.name.slice(1)}</h1>
             <img src={pokemon.img} alt="" />
-            <h3>Species: {pokemon.species}</h3>
-            <h3>Type: {pokemon.type}</h3>
+            {/* <h3>Species: {pokemon.species}</h3> */}
+            <h3>
+              Type: {pokemon.type[0].toUpperCase() + pokemon.type.slice(1)}
+            </h3>
             <h4>HP: {pokemon.hp}</h4>
             <h4>Attack: {pokemon.attack}</h4>
             <h4>Defense: {pokemon.defense}</h4>
             <br />
-            <button onClick={sendFavouritePokemon}>Add to favourites</button>
+            <button
+              className="btn btn-primary btn-sm"
+              onClick={sendFavouritePokemon}
+            >
+              Add to favourites
+            </button>
           </>
         )}
       </div>

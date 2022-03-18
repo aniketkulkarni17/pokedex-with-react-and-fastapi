@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
+import pokeball from "../images/pokeball.png";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -53,44 +54,52 @@ function Login() {
 
   return (
     <div className="login-page">
-      <form className="login-form" onSubmit={(event) => event.preventDefault()}>
-        <div className="mb-3">
-          <h2>Welcome to Pokedex</h2>
-          <label htmlFor="exampleInputEmail1" className="form-label">
-            Email address
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            id="emailid"
-            aria-describedby="emailHelp"
-            onChange={getEmailAddress}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">
-            Password
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="pwd"
-            onChange={getPassword}
-          />
-        </div>
-        <button
-          type="submit"
-          className="btn btn-primary"
-          onClick={submitUserLoginData}
+      <div className="glass">
+        <form
+          className="login-form"
+          onSubmit={(event) => event.preventDefault()}
         >
-          Submit
-        </button>
-      </form>
-      <div id="emailHelp" className="form-text">
-        Don't have an account?{" "}
-        <button className="sign-up-btn" onClick={redirectToSignUp}>
-          Sign Up
-        </button>
+          <div className="mb-3">
+            <h2 className="heading">Welcome to Pokedex</h2>
+            <label htmlFor="exampleInputEmail1" className="form-label">
+              Email address
+            </label>
+            <input
+              type="email"
+              className="form-control"
+              id="emailid"
+              aria-describedby="emailHelp"
+              onChange={getEmailAddress}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="exampleInputPassword1" className="form-label">
+              Password
+            </label>
+            <input
+              type="password"
+              className="form-control"
+              id="pwd"
+              onChange={getPassword}
+            />
+          </div>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={submitUserLoginData}
+          >
+            Submit
+          </button>
+        </form>
+        <div id="emailHelp" className="form-text">
+          Don't have an account?{" "}
+          <button
+            className="btn-secondary sign-up-btn"
+            onClick={redirectToSignUp}
+          >
+            Sign Up
+          </button>
+        </div>
       </div>
     </div>
   );

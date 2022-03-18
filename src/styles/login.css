@@ -1,5 +1,16 @@
+body {
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-image: linear-gradient(
+    to bottom right,
+    rgb(45, 134, 45),
+    rgb(177, 177, 120)
+  );
+}
+
 .login-page {
   text-align: center;
+  color: white;
 }
 
 .login-form {

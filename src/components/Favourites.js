@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Favourites() {
   let navigate = useNavigate();
-  var pokemonName = "";
-  var pokemonChosen = false;
+  const [pokemonName, setPokemonName] = useState("");
   const [pokemon, setPokemon] = useState({
     name: "",
     species: "",
@@ -16,17 +15,7 @@ function Favourites() {
     type: "",
   });
 
-  const getFavouritePokemon = () => {
-    const request = new XMLHttpRequest();
-    request.open("GET", `/getFavouritePokemon`);
-    request.onload = () => {
-      const response = request.responseText;
-      console.log(response);
-      pokemonName = response;
-      searchPokemon();
-    };
-    request.send();
-  };
+  const [pokemonChosen, setPokemonChosen] = useState(false);
 
   const searchPokemon = () => {
     axios
@@ -41,39 +30,57 @@ function Favourites() {
           defense: response.data.stats[2].base_stat,
           type: response.data.types[0].type.name,
         });
-        pokemonChosen = true;
+        setPokemonChosen(true);
       });
   };
 
-  const goToPokedex = () => {
+  const getFavouritePokemon = () => {
+    axios.get(`/getFavouritePokemon`).then((response) => {
+      setPokemonName(response.data);
+    });
+  };
+
+  useEffect(() => {
+    getFavouritePokemon();
+    searchPokemon();
+  }, [pokemonName]);
+
+  const redirectToPokedex = () => {
     navigate("/pokedex");
   };
 
-  getFavouritePokemon();
-
   return (
-    <div className="pokedex-main">
-      <div className="title-section">
-        <h1>Favourites</h1>
+    <>
+      <div className="pokedex-main">
         <div className="display-section">
           {!pokemonChosen ? (
-            <h1>No favourites</h1>
+            <h1>Please choose a Pokemon</h1>
           ) : (
             <>
-              <h1>{pokemon.name}</h1>
+              <h1>{pokemon.name[0].toUpperCase() + pokemon.name.slice(1)}</h1>
               <img src={pokemon.img} alt="" />
-              <h3>Species: {pokemon.species}</h3>
-              <h3>Type: {pokemon.type}</h3>
+              <h3>
+                Species:{" "}
+                {pokemon.species[0].toUpperCase() + pokemon.name.slice(1)}
+              </h3>
+              <h3>
+                Type: {pokemon.type[0].toUpperCase() + pokemon.type.slice(1)}
+              </h3>
               <h4>HP: {pokemon.hp}</h4>
               <h4>Attack: {pokemon.attack}</h4>
               <h4>Defense: {pokemon.defense}</h4>
-              <br />
             </>
           )}
         </div>
-        <button onClick={goToPokedex}>Go back</button>
       </div>
-    </div>
+
+      <button
+        className="btn btn-primary btn-sm go-back-to-pokedex"
+        onClick={redirectToPokedex}
+      >
+        Go Back
+      </button>
+    </>
   );
 }
 
